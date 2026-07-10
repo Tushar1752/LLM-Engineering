@@ -1,0 +1,36 @@
+"""
+ Step 1: A single-turn LLM call.
+
+Send ONE message, print ONE reply. This is the seed the whole chatbot grows from:
+notice that `messages` is a LIST, even though it has only one item right now.
+
+Setup: pip install groq python-dotenv   (+ GROQ_API_KEY in .env from console.groq.com/keys)
+"""
+
+import os
+from dotenv import load_dotenv
+from groq import Groq
+
+load_dotenv()
+
+MODEL = "llama-3.3-70b-versatile"             
+
+
+def main() -> None:
+    client = Groq(api_key=os.environ["GROQ_API_KEY"])
+    messages = [
+        {"role": "user", "content": "In one sentence, what is a chatbot?"},
+    ]
+
+    chat = client.chat.completions.create(
+        model=MODEL,
+        messages=messages,
+    )
+
+    # The reply is buried inside the response. Pull out the first choice's text.
+    reply = chat.choices[0].message.content
+    print(reply.strip())
+
+
+if __name__ == "__main__":
+    main()
