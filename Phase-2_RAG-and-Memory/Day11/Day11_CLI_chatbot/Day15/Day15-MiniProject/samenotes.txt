@@ -1,0 +1,3 @@
+Line 1: Chroma stores vectors.
+Line 2: Embeddings turn text into meaning.
+Line 3: RAG retrieves, then the LLM answers.
